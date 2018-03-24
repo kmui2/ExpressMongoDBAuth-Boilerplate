@@ -1,38 +1,22 @@
-# node-js-sample
+# NodeJS and MongoDB Boilerplate
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+This is designed for someone who needs a simple backend API to take HTTP request and interact with MongoDB using [Mongoose](http://mongoosejs.com/)
 
-## Running Locally
+Much Source Code from: https://github.com/uwmadisonieee/Server-And-Database-Workshop 
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
+## How to run
 
-```sh
-git clone git@github.com:heroku/node-js-sample.git # or clone your own fork
-cd node-js-sample
-npm install
-npm start
-```
+1. Open terminal and `cd` to the directory
+2. run `npm install`
+3. make sure your `mongod` is up and running or it will crash on startup
+4. run `node server.js`
+	
+If you get something like `failed to connect to server [127.0.0.1:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]` then good change your MongoDB Daemon is not up and running.
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+## How to use
 
-## Deploying to Heroku
+If you have an application you just need to point it to the URL of this machine and add the port.
 
-```
-heroku create
-git push heroku master
-heroku open
-```
+> Example: http://localhost:9000
 
-Alternatively, you can deploy your own copy of the app using the web-based flow:
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [10 Habits of a Happy Node Hacker](https://blog.heroku.com/archives/2014/3/11/node-habits)
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+[Postman](https://www.getpostman.com/) is a tool used to call HTTP Request and see the response. This will be used to test that our server is correctly handling all various HTTP Request.
