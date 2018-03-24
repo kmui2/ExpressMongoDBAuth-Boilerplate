@@ -1,20 +1,20 @@
 // source: https://github.com/uwmadisonieee/Server-And-Database-Workshop 
 //-------------------------Module "Importing"-----------------------------//
-const express = require("express"); //used as routing framework
+//modules required (same idea of #includes or Imports)
+import express from "express"; //used as routing framework
+import path from "path"; //Node.js module used for getting path of file
+import logger from "morgan"; //used to log in console window all request
+import cookieParser from "cookie-parser"; //Parse Cookie header and populate req.cookies
+import bodyParser from "body-parser"; //allows the use of req.body in POST request
+import http from 'http';
+import mongoose from "mongoose";
+
+import { api } from "./routes/api.js"; //gets api logic from path
+import config from './config/database';
+
+const server = http.createServer(app); //creates an HTTP server instance
 const app = express(); //creates an instance of express
 
-//modules required (same idea of #includes or Imports)
-const path = require("path"); //Node.js module used for getting path of file
-const logger = require("morgan"); //used to log in console window all request
-const cookieParser = require("cookie-parser"); //Parse Cookie header and populate req.cookies
-const bodyParser = require("body-parser"); //allows the use of req.body in POST request
-const server = require("http").createServer(app); //creates an HTTP server instance
-
-const api = require("./routes/api.js"); //gets api logic from path
-
-// add for Mongo support
-const config = require('./config/database');
-const mongoose = require("mongoose");
 
 // Connect To Database
 mongoose.Promise = global.Promise;

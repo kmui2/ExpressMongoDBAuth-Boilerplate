@@ -1,14 +1,16 @@
-void function () {
-  "use strict";
+import express from "express";
+import fs from "fs"
+import path from "path";
 
-  const express = require("express");
-  const router = express.Router();
+const router = express.Router();
 
-  // Creates the next layer of url call
-  // example go to /api/count to go to count folder
-  // Also: index.js is the file called inside the folder
-  router.use("/book", require("./book"));
-  router.use("/count", require("./count"));
+// Creates the next layer of url call
+// example go to /api/count to go to count folder
+// Also: index.js is the file called inside the folder
+fs.readdir("./routes", (err, items) => {
+  items.filter(file => file.match(/^(.(?!.*\.js))*$/)).forEach(folder => {
+    router.use("/" + folder, require("./" + folder).router);
+  });
+});
 
-  module.exports = router;
-}();
+export { router as api };

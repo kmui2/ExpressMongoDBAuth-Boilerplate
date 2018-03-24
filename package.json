@@ -1,11 +1,16 @@
 {
   "name": "node-js-sample",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js --exec babel-node --presets babel-preset-env"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "es-module-loader": "^2.2.8",
     "express": "^4.16.3",
     "mongoose": "^5.0.11",
     "morgan": "^1.9.0"
