@@ -17,6 +17,6 @@ If you get something like `failed to connect to server [127.0.0.1:27017] on firs
 
 If you have an application you just need to point it to the URL of this machine and add the port.
 
-> Example: http://localhost:9000
+> Example: http://localhost:8000
 
 [Postman](https://www.getpostman.com/) is a tool used to call HTTP Request and see the response. This will be used to test that our server is correctly handling all various HTTP Request.
