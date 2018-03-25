@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser"; //Parse Cookie header and populate req
 import bodyParser from "body-parser"; //allows the use of req.body in POST request
 import http from 'http';
 import mongoose from "mongoose";
+import jwt from 'jsonwebtoken';
 
 import { router as api } from "./routes/api/api.js"; //gets api logic from path
 import { router as user } from "./routes/user/index.js"; //gets user logic from path
@@ -38,7 +39,22 @@ app.use(bodyParser.json()); //parses json and sets to body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api', api);
+app.use('/api', (req, res, next) => {
+  // check header or url parameters or post parameters for token
+  // console.log(req.headers)
+  const token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (!token)
+    return res.status(401).send({ error: 'No token provided.', success: 'false' });
+    // return res.redirect(403, '/login');
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err)
+      return res.status(403).send({ success: false, error: 'Failed to authenticate token.' });
+    req.decoded = decoded;
+    req.userId = decoded.id;
+    next();
+  });
+}, api);
 app.use('/user', user);
 
 // so when people try to access it via browser
