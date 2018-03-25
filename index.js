@@ -1,4 +1,4 @@
-// source: https://github.com/uwmadisonieee/Server-And-Database-Workshop 
+// source: https://github.com/uwmadisonieee/Server-And-Database-Workshop
 //-------------------------Module "Importing"-----------------------------//
 //modules required (same idea of #includes or Imports)
 import express from "express"; //used as routing framework
@@ -9,7 +9,8 @@ import bodyParser from "body-parser"; //allows the use of req.body in POST reque
 import http from 'http';
 import mongoose from "mongoose";
 
-import { api } from "./routes/api.js"; //gets api logic from path
+import { router as api } from "./routes/api/api.js"; //gets api logic from path
+import { router as user } from "./routes/user/index.js"; //gets user logic from path
 import config from './config/database';
 
 const server = http.createServer(app); //creates an HTTP server instance
@@ -38,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api', api);
+app.use('/user', user);
 
 // so when people try to access it via browser
 app.get("/", function(req, res) {
