@@ -1,10 +1,9 @@
 {
   "name": "node-js-sample",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node --presets babel-preset-env"
+    "start": "nodemon index.js --exec babel-node"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-preset-env": "^1.6.1",
@@ -17,5 +16,8 @@
     "mongoose": "^5.0.11",
     "morgan": "^1.9.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
