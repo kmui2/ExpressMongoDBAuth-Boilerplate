@@ -18,17 +18,8 @@ export function register(req, res) {
     name: name
   });
 
-  user.save(err => {
-    if (err) {
-      if (err.name === "MongoError" && err.code === 11000)
-        return res
-          .status(500)
-          .json({ error: "Username already exists", success: false });
-
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
+  user.save()
+  .then(() => {    
     const token = jwt.sign(
       {
         username: user.username,
@@ -40,6 +31,15 @@ export function register(req, res) {
 
     console.log("User " + user.username + " registered!");
     return res.json({ success: true, token: token });
+  })
+  .catch((err) => {
+    if (err.name === "MongoError" && err.code === 11000)
+      return res
+        .status(500)
+        .json({ error: "Username already exists", success: false });
+  
+    console.error(err);
+    return res.status(500).send(err);
   });
 }
 
@@ -52,25 +52,22 @@ export function login(req, res) {
       .status(500)
       .json({ error: "Missing username or password", success: false });
 
-  User.findOne({ username: username }, (err, user) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    if (!user) return res.json({ error: "Username or Password is incorrect", success: false });
-
+  User.findOne({ username: username })
+  .then((user) => {   
+    if (!user) 
+      return res.json({ error: "Username or Password is incorrect", success: false });
+    
     user.comparePassword(password, user.password, (err, isMatch) => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
       }
       if (!isMatch)
-        return res.json({
-          error: "Username or Password is incorrect",
-          success: false
-        });
-
+      return res.json({
+        error: "Username or Password is incorrect",
+        success: false
+      });
+      
       const token = jwt.sign(
         {
           username: user.username,
@@ -82,5 +79,9 @@ export function login(req, res) {
       console.log("User " + user.username + " signed in!");
       return res.json({ success: true, token: token });
     });
+  })
+  .catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
   });
 }

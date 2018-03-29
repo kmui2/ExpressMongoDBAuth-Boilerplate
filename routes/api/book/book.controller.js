@@ -5,34 +5,37 @@ import Book from "./book.model.js";
 // READ
 // "getById" - will grab all for display
 export function getById(req, res) {
-  Book.find({ _id: req.params.id }, function(err, result) {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
+  Book.find({ _id: req.params.id })
+  .then((result) => {
     return res.json(result);
+  })
+  .catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
   });
 }
 
 // "getByRating" - will grab all for display
 export function getByRating(req, res) {
-  Book.find({ rating: { $gte: req.params.rating } }, function(err, result) {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
+  Book.find({ rating: { $gte: req.params.rating } })
+  .then((result) => {
     return res.json(result);
+  })
+  .catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
   });
 }
 
 // "getAllAuthors" - will grab all authors for display
 export function getAllAuthors(req, res) {
-  Book.find({}, { author: 1, _id: 0 }, function(err, result) {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
+  Book.find({}, { author: 1, _id: 0 })
+  .then((result) => {
     return res.json(result);
+  })
+  .catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
   });
 }
 
@@ -57,12 +60,12 @@ export function add(req, res) {
     rating: req.body.rating
   });
 
-  book.save(function(err, result) {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
+  book.save().then((result) => {
     return res.json(result);
+  })
+  .catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
   });
 }
 
@@ -77,15 +80,14 @@ export function updateRating(req, res) {
 
   Book.update(
     { _id: req.body.id },
-    { $set: { rating: req.body.rating } },
-    function(err, result) {
-      if (err) {
-        console.error(err);
-        return res.status(500).send(err);
-      }
-      return res.json(result);
-    }
-  );
+    { $set: { rating: req.body.rating } })
+  .then((result) => {
+    return res.json(result);
+  }).
+  catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
+  })
 }
 
 // DELETE
@@ -94,11 +96,12 @@ export function updateRating(req, res) {
 export function remove(req, res) {
   // SHOULD have authenticaton token so no one can just randomly call the delete URL
 
-  Book.findOneAndRemove({ _id: req.params.id }, function(err, result) {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
+  Book.findOneAndRemove({ _id: req.params.id })
+  .then((result) => {
     return res.json(result);
+  })
+  .catch((err) => {
+    console.error(err);
+    return res.status(500).send(err);
   });
 }
