@@ -57,6 +57,11 @@ app.use('/api', (req, res, next) => {
 }, api);
 app.use('/user', user);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send(err.tack);
+})
+
 // so when people try to access it via browser
 app.get("/", function(req, res) {
   res.status(200).sendFile(path.join(__dirname + "/public/index.html"));
