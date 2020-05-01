@@ -1,7 +1,9 @@
 {
   "name": "node-js-sample",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node"
+    "start": "nodemon index.js --exec babel-node",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -14,11 +16,13 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.11",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "snyk": "^1.316.1"
   },
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "nodemon": "^1.17.5"
-  }
+  },
+  "snyk": true
 }
